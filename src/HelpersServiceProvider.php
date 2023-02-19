@@ -2,17 +2,35 @@
 
 namespace Brunocfalcao\Helpers;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class HelpersServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
+    {
+        $this->registerMacros();
+        $this->registerBladeDirectives();
+    }
+
+    public function register(): void
     {
         //
     }
 
-    public function register()
+    protected function registerMacros(): void
     {
-        //
+        // Include all files from the Macros folder.
+        Collection::make(glob(__DIR__.'/Macros/*.php'))
+                  ->mapWithKeys(function ($path) {
+                      return [$path => pathinfo($path, PATHINFO_FILENAME)];
+                  })
+                  ->each(function ($macro, $path) {
+                      require_once $path;
+                  });
+    }
+
+    protected function registerBladeDirectives(): void
+    {
     }
 }
