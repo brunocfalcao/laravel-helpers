@@ -1,10 +1,10 @@
 {
-    "name": "brunocfalcao/laravel-tracer",
-    "description": "Laravel Tracer - Trace visits, application logs, geolocation, etc",
+    "name": "brunocfalcao/laravel-helpers",
+    "description": "Laravel Helpers - Swiss army knife to complement your web apps",
     "keywords": [
         "brunocfalcao"
     ],
-    "homepage": "https://github.com/brunocfalcao/brunocfalcao/laravel-tracer",
+    "homepage": "https://github.com/brunocfalcao/brunocfalcao/laravel-helpers",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Brunocfalcao\\Tracer\\": "src/"
+            "Brunocfalcao\\Helpers\\": "src/"
         }
     },
     "config": {
@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Brunocfalcao\\Tracer\\TracerServiceProvider"
+                "Brunocfalcao\\Helpers\\HelperServiceProvider"
             ]
         }
     }
