@@ -14,7 +14,6 @@ trait CanValidateArguments
      * Console prompt, but enpowered with rules.
      *
      *
-     * @param  string  $question
      * @param  string  $rules
      * @return mixed
      */

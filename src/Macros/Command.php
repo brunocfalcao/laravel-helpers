@@ -6,7 +6,7 @@ Command::macro('paragraph', function ($text, $endlf = true, $startlf = true) {
     if ($startlf) {
         $this->info('');
     }
-        $this->info($text);
+    $this->info($text);
     if ($endlf) {
         $this->info('');
     }

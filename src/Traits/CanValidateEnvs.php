@@ -34,7 +34,6 @@ trait CanValidateEnvs
                 $contains = false;
                 // Validate each array value into the possible values.
                 collect($item)->each(function ($value) use ($key, &$contains) {
-
                     // Collection value is null?
                     if (is_null($value) && is_null(env($key))) {
                         $this->envValidationMsg = '.env '.$key.' cannot be null / must exist';
@@ -54,7 +53,7 @@ trait CanValidateEnvs
                     $this->envValidated = false;
                 }
 
-                // Non-array key value to be tested.
+            // Non-array key value to be tested.
             } else {
                 // Is it null?
                 if (is_null($item) && is_null(env($key))) {
