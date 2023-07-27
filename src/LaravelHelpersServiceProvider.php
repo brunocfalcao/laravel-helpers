@@ -1,12 +1,12 @@
 <?php
 
-namespace Brunocfalcao\Helpers;
+namespace Brunocfalcao\LaravelHelpers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-class HelpersServiceProvider extends ServiceProvider
+class LaravelHelpersServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {

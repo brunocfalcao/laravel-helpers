@@ -1,6 +1,6 @@
 <?php
 
-namespace Brunocfalcao\Helpers\Traits;
+namespace Brunocfalcao\LaravelHelpers\Traits;
 
 use Illuminate\Support\Collection;
 

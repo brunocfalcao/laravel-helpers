@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Brunocfalcao\\Helpers\\HelpersServiceProvider"
+                "Brunocfalcao\\LaravelHelpers\\LaravelHelpersServiceProvider"
             ]
         }
     }
