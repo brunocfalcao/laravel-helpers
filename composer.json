@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Brunocfalcao\\Helpers\\": "src/"
+            "Brunocfalcao\\LaravelHelpers\\": "src/"
         }
     },
     "config": {
