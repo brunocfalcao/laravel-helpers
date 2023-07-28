@@ -2,6 +2,7 @@
 
 namespace Brunocfalcao\LaravelHelpers;
 
+use Brunocfalcao\LaravelHelpers\Commands\ViewNamespacesCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -12,11 +13,20 @@ class LaravelHelpersServiceProvider extends ServiceProvider
     {
         $this->registerMacros();
         $this->registerBladeDirectives();
+        $this->registerCommands();
     }
 
     public function register(): void
     {
         //
+    }
+
+
+    protected function registerCommands()
+    {
+        $this->commands([
+            ViewNamespacesCommand::class,
+        ]);
     }
 
     protected function registerMacros(): void
