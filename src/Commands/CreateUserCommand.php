@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class CreateUserCommand extends Command
 {
-    protected $signature = 'user:create';
+    protected $signature = 'user:create
+                            {--name= : The name for the user}
+                            {--email= : The email for the user}
+                            {--password= : The password for the user}
+                            {--random : Generate random name, email, and password}';
+
     protected $description = 'Create a new user';
 
     public function handle()
@@ -29,25 +35,50 @@ class CreateUserCommand extends Command
             $userClass = $defaultUserClass;
         }
 
-        $name = $this->ask('Enter name:');
-        $email = $this->ask('Enter email:');
+        $faker = Faker::create();
+
+        $name = $this->option('name') ?: $this->ask('Enter name:', $faker->name);
+        $email = $this->option('email') ?: $this->ask('Enter email:', $faker->unique()->safeEmail);
 
         // Validate email uniqueness
         $user = App::make($userClass);
         while ($user::where('email', $email)->exists()) {
             $this->error('Email already exists in the database. Please try again with a different email.');
-            $email = $this->ask('Enter email:');
+            $email = $this->ask('Enter email:', $faker->unique()->safeEmail);
         }
 
-        $password = $this->secret('Enter password:');
+        $password = $this->option('password') ?: $this->secret('Enter password:', $faker->password);
+
+        if ($this->option('random')) {
+            $name = $faker->name;
+            $email = $this->generateUniqueRandomEmail($user, $faker);
+            $password = $faker->password;
+        }
 
         // Create the user in the database
         $user::create([
             'name' => $name,
             'email' => $email,
-            'password' => Hash::make($password)
+            'password' => Hash::make($password),
+            // Add any additional fields here, if needed.
         ]);
 
         $this->info('User created successfully!');
+        if ($this->option('random')) {
+            $this->info("Generated name: $name");
+            $this->info("Generated email: $email");
+            $this->info("Generated password: $password");
+        }
+    }
+
+    protected function generateUniqueRandomEmail($userModel, $faker)
+    {
+        $email = $faker->unique()->safeEmail;
+
+        while ($userModel::where('email', $email)->exists()) {
+            $email = $faker->unique()->safeEmail;
+        }
+
+        return $email;
     }
 }
