@@ -37,26 +37,26 @@ class CreateUserCommand extends Command
 
         $faker = Faker::create();
 
-        $name = $this->option('name') ?: $this->ask('Enter name:', $faker->name);
-        $email = $this->option('email') ?: $this->ask('Enter email:', $faker->unique()->safeEmail);
-
-        // Validate email uniqueness
-        $user = App::make($userClass);
-        while ($user::where('email', $email)->exists()) {
-            $this->error('Email already exists in the database. Please try again with a different email.');
-            $email = $this->ask('Enter email:', $faker->unique()->safeEmail);
-        }
-
-        $password = $this->option('password') ?: $this->secret('Enter password:', $faker->password);
-
         if ($this->option('random')) {
             $name = $faker->name;
-            $email = $this->generateUniqueRandomEmail($user, $faker);
-            $password = $faker->password;
+            $email = $this->generateUniqueRandomEmail($userClass, $faker);
+            $password = $faker->words(1, true); // Generate a single word as the password
+        } else {
+            $name = $this->option('name') ?: $this->ask('Enter name:', $faker->name);
+            $email = $this->option('email') ?: $this->ask('Enter email:', $faker->unique()->safeEmail);
+
+            // Validate email uniqueness
+            $user = App::make($userClass);
+            while ($user::where('email', $email)->exists()) {
+                $this->error('Email already exists in the database. Please try again with a different email.');
+                $email = $this->ask('Enter email:', $faker->unique()->safeEmail);
+            }
+
+            $password = $this->option('password') ?: $this->secret('Enter password:');
         }
 
         // Create the user in the database
-        $user::create([
+        $userClass::create([
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($password),
@@ -64,6 +64,7 @@ class CreateUserCommand extends Command
         ]);
 
         $this->info('User created successfully!');
+
         if ($this->option('random')) {
             $this->info("Generated name: $name");
             $this->info("Generated email: $email");
@@ -71,11 +72,11 @@ class CreateUserCommand extends Command
         }
     }
 
-    protected function generateUniqueRandomEmail($userModel, $faker)
+    protected function generateUniqueRandomEmail($userClass, $faker)
     {
         $email = $faker->unique()->safeEmail;
 
-        while ($userModel::where('email', $email)->exists()) {
+        while ($userClass::where('email', $email)->exists()) {
             $email = $faker->unique()->safeEmail;
         }
 
