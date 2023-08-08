@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
 
-class CreateUserCommand extends Command
+class MakeUserCommand extends Command
 {
-    protected $signature = 'user:create
+    protected $signature = 'make:user
                             {--name= : The name for the user}
                             {--email= : The email for the user}
                             {--password= : The password for the user}
