@@ -10,13 +10,13 @@ class DomainPatternIdentifier
     /**
      * Parse the given URL and extract its components.
      *
-     * @param string|null $url The URL to parse.
+     * @param  string|null  $url The URL to parse.
      * @return array An associative array containing URL components.
      */
     public static function parseUrl($url = null)
     {
         if (is_null($url)) {
-            throw new InvalidArgumentException("URL cannot be null.");
+            throw new InvalidArgumentException('URL cannot be null.');
         }
 
         $parsedUrl = parse_url($url);
@@ -42,7 +42,7 @@ class DomainPatternIdentifier
 
     private static function extractHttpScheme($parsedUrl)
     {
-        return isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] : 'http';
+        return $parsedUrl['scheme'] ?? 'http';
     }
 
     private static function extractSubdomain($parsedUrl)
@@ -56,6 +56,7 @@ class DomainPatternIdentifier
                 $subdomain = implode('.', array_slice($hostParts, 0, $numParts - 2));
             }
         }
+
         return $subdomain;
     }
 
@@ -72,6 +73,7 @@ class DomainPatternIdentifier
                 $domain = $parsedUrl['host'];
             }
         }
+
         return $domain;
     }
 
@@ -86,12 +88,13 @@ class DomainPatternIdentifier
                 $topLevelDomain = $hostParts[$numParts - 1];
             }
         }
+
         return $topLevelDomain;
     }
 
     private static function extractPort($parsedUrl)
     {
-        return isset($parsedUrl['port']) ? $parsedUrl['port'] : self::DEFAULT_HTTP_PORT;
+        return $parsedUrl['port'] ?? self::DEFAULT_HTTP_PORT;
     }
 
     private static function extractPath($parsedUrl)
@@ -103,6 +106,7 @@ class DomainPatternIdentifier
                 $path = null;
             }
         }
+
         return $path;
     }
 
@@ -111,8 +115,10 @@ class DomainPatternIdentifier
         if (isset($parsedUrl['query'])) {
             $querystring = [];
             parse_str($parsedUrl['query'], $querystring);
+
             return $querystring;
         }
+
         return null;
     }
 }

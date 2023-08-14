@@ -9,6 +9,7 @@ use Symfony\Component\Console\Helper\Table;
 class ViewNamespacesCommand extends Command
 {
     protected $signature = 'view:namespaces';
+
     protected $description = 'List all the loaded view namespaces';
 
     public function handle(ViewFactory $viewFactory)

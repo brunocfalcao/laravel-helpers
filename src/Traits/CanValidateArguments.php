@@ -14,7 +14,6 @@ trait CanValidateArguments
      * Console prompt, but enpowered with rules.
      *
      * @param  string  $rules
-     *
      * @return mixed
      */
     protected function askWithRules(string $question, string|array|Rule $rules)
@@ -22,7 +21,7 @@ trait CanValidateArguments
         $exit = false;
         $answer = null;
 
-        while (!$exit) {
+        while (! $exit) {
             $answer = $this->ask($question);
             $validator = Validator::make([$question => $answer], [$question => $rules]);
 
@@ -43,7 +42,6 @@ trait CanValidateArguments
      *
      * @param  array  $rules  Rules array
      * @param  bool  $includeNulls  Should we remove the null values?
-     *
      * @return bool Result of the validation. Also triggers a console
      *              error() with the validation error message
      */
@@ -52,7 +50,7 @@ trait CanValidateArguments
         $parameters = array_merge($this->options(), $this->arguments());
 
         //Remove nulls?
-        if (!$includeNulls) {
+        if (! $includeNulls) {
             $parameters = collect($parameters)->reject(function ($value, $key) {
                 return is_null($value);
             })->toArray();
@@ -62,6 +60,7 @@ trait CanValidateArguments
 
         if ($validator->fails()) {
             $this->error($validator->errors()->first());
+
             return false;
         }
 

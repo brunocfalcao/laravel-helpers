@@ -22,12 +22,11 @@ class LaravelHelpersServiceProvider extends ServiceProvider
         //
     }
 
-
     protected function registerCommands()
     {
         $this->commands([
             ViewNamespacesCommand::class,
-            MakeUserCommand::class
+            MakeUserCommand::class,
         ]);
     }
 

@@ -12,11 +12,11 @@ class _DomainPatternIdentifier
 
         $parsedUrl = parse_url($url);
 
-        $httpType = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] : 'http';
+        $httpType = $parsedUrl['scheme'] ?? 'http';
         $subdomain = null; // Initialize as null
         $domain = null;
         $suffix = null;
-        $port = isset($parsedUrl['port']) ? $parsedUrl['port'] : 80;
+        $port = $parsedUrl['port'] ?? 80;
         $path = null;
 
         if (isset($parsedUrl['host'])) {
