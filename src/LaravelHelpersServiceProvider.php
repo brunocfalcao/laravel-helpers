@@ -2,6 +2,7 @@
 
 namespace Brunocfalcao\LaravelHelpers;
 
+use Brunocfalcao\LaravelHelpers\Commands\ChangeUserPasswordCommand;
 use Brunocfalcao\LaravelHelpers\Commands\MakeUserCommand;
 use Brunocfalcao\LaravelHelpers\Commands\ViewNamespacesCommand;
 use Illuminate\Support\Collection;
@@ -25,6 +26,7 @@ class LaravelHelpersServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         $this->commands([
+            ChangeUserPasswordCommand::class,
             ViewNamespacesCommand::class,
             MakeUserCommand::class,
         ]);
