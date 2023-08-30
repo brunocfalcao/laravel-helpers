@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use InvalidArgumentException;
 
 class ChangeUserPasswordCommand extends Command
 {
@@ -41,12 +40,12 @@ class ChangeUserPasswordCommand extends Command
         ]);
 
         if ($validator->fails()) {
-            throw new InvalidArgumentException('Invalid input: '.$validator->errors());
+            return $this->error('Invalid input: '.$validator->errors());
         }
 
         // Check if email or ID is provided
         if (! $email && ! $id) {
-            throw new InvalidArgumentException('Either email or ID is required.');
+            return $this->error('Either email or ID is required.');
         }
 
         // Prompt for password if not provided
