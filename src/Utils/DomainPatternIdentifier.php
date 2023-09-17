@@ -16,7 +16,7 @@ class DomainPatternIdentifier
     public static function parseUrl($url = null)
     {
         if (is_null($url)) {
-            throw new InvalidArgumentException('URL cannot be null.');
+            $url = request()->fullUrl();
         }
 
         $parsedUrl = parse_url($url);

@@ -4,6 +4,7 @@ namespace Brunocfalcao\LaravelHelpers;
 
 use Brunocfalcao\LaravelHelpers\Commands\ChangeUserPasswordCommand;
 use Brunocfalcao\LaravelHelpers\Commands\MakeUserCommand;
+use Brunocfalcao\LaravelHelpers\Commands\PolicyListCommand;
 use Brunocfalcao\LaravelHelpers\Commands\ViewNamespacesCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
@@ -27,6 +28,7 @@ class LaravelHelpersServiceProvider extends ServiceProvider
     {
         $this->commands([
             ChangeUserPasswordCommand::class,
+            PolicyListCommand::class,
             ViewNamespacesCommand::class,
             MakeUserCommand::class,
         ]);
