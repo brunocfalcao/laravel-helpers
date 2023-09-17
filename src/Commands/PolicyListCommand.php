@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 class PolicyListCommand extends Command
 {
     protected $signature = 'policy:list';
+
     protected $description = 'List all registered Eloquent model policies';
 
     public function handle()
