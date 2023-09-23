@@ -4,6 +4,7 @@ namespace Brunocfalcao\LaravelHelpers;
 
 use Brunocfalcao\LaravelHelpers\Commands\ChangeUserPasswordCommand;
 use Brunocfalcao\LaravelHelpers\Commands\MakeUserCommand;
+use Brunocfalcao\LaravelHelpers\Commands\PintCommand;
 use Brunocfalcao\LaravelHelpers\Commands\PolicyListCommand;
 use Brunocfalcao\LaravelHelpers\Commands\ViewNamespacesCommand;
 use Illuminate\Support\Collection;
@@ -31,6 +32,7 @@ class LaravelHelpersServiceProvider extends ServiceProvider
             PolicyListCommand::class,
             ViewNamespacesCommand::class,
             MakeUserCommand::class,
+            PintCommand::class,
         ]);
     }
 
