@@ -22,7 +22,10 @@
     "autoload": {
         "psr-4": {
             "Brunocfalcao\\LaravelHelpers\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
