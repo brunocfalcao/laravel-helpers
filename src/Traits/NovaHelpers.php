@@ -94,8 +94,14 @@ trait NovaHelpers
      *
      * @return bool
      */
-    private function novaSegmentOn(string $segment, int $position)
+    private function novaSegmentOn(string $segment, int $position = null)
     {
+        if (! $position) {
+            $segments = request()->segments();
+
+            return in_array($segment, $segments);
+        }
+
         $segments = request()->segments();
 
         return isset($segments[$position]) && $segments[$position] === $segment;
