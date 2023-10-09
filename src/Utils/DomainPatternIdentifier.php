@@ -27,9 +27,11 @@ class DomainPatternIdentifier
         $topLevelDomain = self::extractTopLevelDomain($parsedUrl);
         $port = self::extractPort($parsedUrl);
         $path = self::extractPath($parsedUrl);
+        $method = request()->method();
         $querystring = self::extractQuerystring($parsedUrl);
 
         return [
+            'method' => $method,
             'http_scheme' => $httpScheme,
             'subdomain' => $subdomain,
             'domain' => $domain,
