@@ -39,7 +39,7 @@ trait CanValidateEnvs
                         $this->envValidationMsg = '.env '.$key.' cannot be null / must exist';
                         $this->envValidated = false;
 
-                        // Collection value equals to env value?
+                    // Collection value equals to env value?
                     } elseif ($value == env($key)) {
                         $this->envValidationMsg = null;
                         $this->envValidated = true;
@@ -53,7 +53,7 @@ trait CanValidateEnvs
                     $this->envValidated = false;
                 }
 
-                // Non-array key value to be tested.
+            // Non-array key value to be tested.
             } else {
                 // Is it null?
                 if (is_null($item) && is_null(env($key))) {
