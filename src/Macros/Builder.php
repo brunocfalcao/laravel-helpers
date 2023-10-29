@@ -37,3 +37,7 @@ Builder::macro('quickJoin', function (...$args) {
 
     return $this;
 });
+
+Builder::macro('getWhere', function (...$args) {
+    return $this->where($args)->get();
+});
