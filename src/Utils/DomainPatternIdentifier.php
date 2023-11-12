@@ -38,7 +38,7 @@ class DomainPatternIdentifier
             'top_level_domain' => $topLevelDomain,
             'port' => $port,
             'path' => $path,
-            'path_segments' => explode('/', $path),
+            'path_segments' => $path ? explode('/', $path) : [],
             'querystring' => $querystring,
         ];
     }
