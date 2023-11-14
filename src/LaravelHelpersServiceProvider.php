@@ -9,6 +9,7 @@ use Brunocfalcao\LaravelHelpers\Commands\PolicyListCommand;
 use Brunocfalcao\LaravelHelpers\Commands\ViewNamespacesCommand;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelHelpersServiceProvider extends ServiceProvider
@@ -18,6 +19,16 @@ class LaravelHelpersServiceProvider extends ServiceProvider
         $this->registerMacros();
         $this->registerBladeDirectives();
         $this->registerCommands();
+
+        Validator::extend('starts_with_custom', function ($attribute, $value, $parameters, $validator) {
+            foreach ($parameters as $param) {
+                if (strpos($value, $param) === 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        }, 'The :attribute must start with one of the following: :values');
     }
 
     public function register(): void
