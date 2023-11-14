@@ -20,7 +20,7 @@ class LaravelHelpersServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
         $this->registerCommands();
 
-        Validator::extend('starts_with_custom', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('starts_with', function ($attribute, $value, $parameters, $validator) {
             foreach ($parameters as $param) {
                 if (strpos($value, $param) === 0) {
                     return true;
