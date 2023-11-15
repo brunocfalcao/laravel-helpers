@@ -16,10 +16,18 @@ class LaravelHelpersServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        $this->registerMacros();
         $this->registerBladeDirectives();
         $this->registerCommands();
+        $this->registerValidationRules();
+    }
 
+    public function register(): void
+    {
+        $this->registerMacros();
+    }
+
+    protected function registerValidationRules()
+    {
         Validator::extend('starts_with', function ($attribute, $value, $parameters, $validator) {
             foreach ($parameters as $param) {
                 if (strpos($value, $param) === 0) {
@@ -29,11 +37,6 @@ class LaravelHelpersServiceProvider extends ServiceProvider
 
             return false;
         }, 'The :attribute must start with one of the following: :values');
-    }
-
-    public function register(): void
-    {
-        //
     }
 
     protected function registerCommands()
