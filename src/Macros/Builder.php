@@ -14,6 +14,17 @@
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
+Builder::macro('toSqlWithBindings', function () {
+    $sql = $this->toSql();
+    $bindings = $this->getBindings();
+
+    foreach ($bindings as $binding) {
+        $sql = preg_replace('/\?/', "'{$binding}'", $sql, 1);
+    }
+
+    return $sql;
+});
+
 Builder::macro('quickJoin', function (...$args) {
     $args = is_array($args[0]) ? $args[0] : $args;
 

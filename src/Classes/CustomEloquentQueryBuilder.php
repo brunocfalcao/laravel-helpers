@@ -60,7 +60,7 @@ class CustomEloquentQueryBuilder extends Builder
      *
      * @return Builder
      */
-    public function bring(string $table, string $primaryKeyOnParent = null, string $parentTable = null)
+    public function bring(string $table, string $primaryKeyOnParent = null, string $foreignKeyOnCurrent = null, string $parentTable = null)
     {
         $alias = null;
         if (Str::contains($table, ' as ')) {
@@ -73,11 +73,14 @@ class CustomEloquentQueryBuilder extends Builder
 
         $joinTable = $alias ? "{$table} as {$alias}" : $table;
 
+        // Determine the foreign key
+        $foreignKey = $foreignKeyOnCurrent ?? "{$tableOrAlias}.".Str::singular($parentTable).'_id';
+
         $this->join(
             $joinTable,
             $primaryKeyOnParent,
             '=',
-            "{$tableOrAlias}.".Str::singular($parentTable).'_id'
+            $foreignKey
         );
 
         $this->lastTableOrAliasJoined = $tableOrAlias;
