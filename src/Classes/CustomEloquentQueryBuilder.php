@@ -26,7 +26,7 @@ class CustomEloquentQueryBuilder extends Builder
      *
      * @return Builder
      */
-    public function upTo(string $table, string $parentTable = null)
+    public function upTo(string $table, ?string $parentTable = null)
     {
         $alias = null;
         if (Str::contains($table, ' as ')) {
@@ -60,7 +60,7 @@ class CustomEloquentQueryBuilder extends Builder
      *
      * @return Builder
      */
-    public function bring(string $table, string $primaryKeyOnParent = null, string $foreignKeyOnCurrent = null, string $parentTable = null)
+    public function bring(string $table, ?string $primaryKeyOnParent = null, ?string $foreignKeyOnCurrent = null, ?string $parentTable = null)
     {
         $alias = null;
         if (Str::contains($table, ' as ')) {

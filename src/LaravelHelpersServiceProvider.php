@@ -19,6 +19,8 @@ class LaravelHelpersServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
         $this->registerCommands();
         $this->registerValidationRules();
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     public function register(): void
