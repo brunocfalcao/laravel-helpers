@@ -121,7 +121,7 @@ class Crawlie
     /**
      * Extracts the value or text from the specified element.
      *
-     * @param  \Symfony\Component\DomCrawler\Crawler  $element The element to extract the value or text from.
+     * @param  Crawler  $element The element to extract the value or text from.
      * @return string The extracted value or text from the element.
      */
     protected function extractValueFromElement($element)
