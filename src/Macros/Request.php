@@ -18,7 +18,7 @@ Request::macro('public_ip', function () {
         return $ip === '127.0.0.1' ?
             trim(file_get_contents('https://ipinfo.io/ip')) :
             $ip;
-    } catch (\Exception $ex) {
+    } catch (Exception $ex) {
         return request()->ip();
     }
 });
