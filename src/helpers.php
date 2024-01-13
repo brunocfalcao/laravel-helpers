@@ -1,22 +1,28 @@
 <?php
 
-if (! function_exists('set_default')) {
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
+if (! function_exists('run')) {
+
     /**
-     * Set a default value for a specified property of an object if it is "blank".
-     * The default value can be a direct value or a closure.
+     * Runs a shell command in a more natural way.
+     * E.g.: "run('php artisan migrate')"
      *
-     * @param  mixed  $object
-     * @param  mixed|callable  $defaultValue
-     * @return mixed
+     * @return mixed error message, or output message
      */
-    function set_default($object, string $property, $defaultValue)
+    function run(string $shellCommand)
     {
-        return tap($object, function ($instance) use ($property, $defaultValue) {
-            if (blank(data_get($instance, $property))) {
-                $value = $defaultValue instanceof Closure ? $defaultValue($instance) : $defaultValue;
-                data_set($instance, $property, $value);
+        $migrateFreshProcess = new Process(explode(' ', $shellCommand));
+        $migrateFreshProcess->run();
+
+        try {
+            if (! $migrateFreshProcess->isSuccessful()) {
+                throw new ProcessFailedException($migrateFreshProcess);
             }
-        });
+        } catch (ProcessFailedException $e) {
+            return $this->error($e->getMessage());
+        }
     }
 }
 
