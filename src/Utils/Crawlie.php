@@ -14,7 +14,7 @@ class Crawlie
     /**
      * Constructor. Sets the URL to be crawled.
      *
-     * @param  string  $url The URL to be crawled.
+     * @param  string  $url  The URL to be crawled.
      *
      * @throws \InvalidArgumentException If the URL is empty.
      */
@@ -30,7 +30,7 @@ class Crawlie
     /**
      * Sets the XPath expression to select elements from the crawled page.
      *
-     * @param  string  $xpath The XPath expression.
+     * @param  string  $xpath  The XPath expression.
      * @return CrawlData Returns the current object for method chaining.
      *
      * @throws \InvalidArgumentException If the XPath is empty.
@@ -121,7 +121,7 @@ class Crawlie
     /**
      * Extracts the value or text from the specified element.
      *
-     * @param  Crawler  $element The element to extract the value or text from.
+     * @param  Crawler  $element  The element to extract the value or text from.
      * @return string The extracted value or text from the element.
      */
     protected function extractValueFromElement($element)

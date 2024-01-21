@@ -36,7 +36,7 @@ trait HasAutoIncrementsByGroup
 
         $maxValue = $query->max($incrementColumn);
 
-        return ($maxValue ?? 0) + $defaultValue;
+        $this->$incrementColumn = ($maxValue ?? 0) + $defaultValue;
     }
 
     /**

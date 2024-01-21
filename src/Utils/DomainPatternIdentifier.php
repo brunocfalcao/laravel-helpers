@@ -10,7 +10,7 @@ class DomainPatternIdentifier
     /**
      * Parse the given URL and extract its components.
      *
-     * @param  string|null  $url The URL to parse.
+     * @param  string|null  $url  The URL to parse.
      * @return array An associative array containing URL components.
      */
     public static function parseUrl($url = null)
