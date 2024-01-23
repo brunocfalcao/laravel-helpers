@@ -15,7 +15,7 @@ trait HasValidations
      */
     public function validate(array $extraRules = [])
     {
-        $validator = Validator::make($this->getAttributes(), array_merge($this->rules, $extraRules));
+        $validator = Validator::make($this->getAttributes(), array_merge($extraRules, $this->rules));
 
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->messages()->toArray());
