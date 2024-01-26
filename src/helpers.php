@@ -21,7 +21,7 @@ if (! function_exists('run')) {
                 throw new ProcessFailedException($migrateFreshProcess);
             }
         } catch (ProcessFailedException $e) {
-            return $this->error($e->getMessage());
+            return $e->getMessage();
         }
     }
 }
