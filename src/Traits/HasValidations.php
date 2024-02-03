@@ -18,7 +18,11 @@ trait HasValidations
         $validator = Validator::make($this->getAttributes(), array_merge($extraRules, $this->rules));
 
         if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->messages()->toArray());
+            if (request()->headers->has('referer')) {
+                throw ValidationException::withMessages($validator->messages()->toArray());
+            } else {
+                throw new \Exception($validator->errors()->first());
+            }
         }
 
         return true;

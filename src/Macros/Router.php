@@ -2,7 +2,7 @@
 
 use Illuminate\Routing\Route;
 
-Route::macro('withMiddlewareWhen', function ($condition, $middleware) {
+Route::macro('middlewareWhen', function ($condition, $middleware) {
     if (call_user_func($condition, request())) {
         $this->middleware($middleware);
     }
