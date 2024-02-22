@@ -25,6 +25,13 @@ Builder::macro('toSqlWithBindings', function () {
     return $sql;
 });
 
+/**
+ * Quickly creates the join() query builder method, using two tables
+ * that follow the table naming convention.
+ *
+ * ::quickJoin('cars', 'drivers') will make a join like
+ * join cars where cars.driver_id = drivers.id.
+ */
 Builder::macro('quickJoin', function (...$args) {
     $args = is_array($args[0]) ? $args[0] : $args;
 
@@ -49,6 +56,52 @@ Builder::macro('quickJoin', function (...$args) {
     return $this;
 });
 
+// A very quick shortcut to do a where('xxx')->get().
 Builder::macro('getWhere', function (...$args) {
     return $this->where($args)->get();
+});
+
+/**
+ * An upgraded version of the sync() (many to many).
+ * The default sync() will delete all the previous records and just keep
+ * the ones passed on this sync() method. This method will preserve
+ * the previous values, already added before, and just guarantee the ones passed on the
+ * are kept as unique.
+ *
+ * The pivotData[] also gets updated/inserted.
+ *
+ * The last argument, means if we should take the pivot data on the where clause
+ * to detect the repeated ones.
+ */
+Builder::macro('syncOnlyThese', function ($relatedIds, array $pivotData = [], bool $considerPivot = false) {
+    // Ensure $relatedIds is always an array
+    $relatedIds = is_array($relatedIds) ? $relatedIds : [$relatedIds];
+
+    foreach ($relatedIds as $relatedId) {
+        // Attach the new relationship with pivot data for each ID
+        $this->attach($relatedId, $pivotData);
+
+        // Get the parent model's primary key name and value
+        $parentKeyName = $this->getParentKeyName();
+        $parentKeyValue = $this->getParentKey();
+
+        // Get the related model's primary key name
+        $relatedKeyName = $this->getRelatedKeyName();
+
+        // Prepare the base query to find duplicate entries for each ID
+        $query = $this->newPivotStatement()->where($parentKeyName, $parentKeyValue)->where($relatedKeyName, $relatedId);
+
+        // If considering pivot values, add them to the query
+        if ($considerPivot) {
+            foreach ($pivotData as $key => $value) {
+                $query->where($key, $value);
+            }
+        }
+
+        // Get IDs of records to keep (the most recent ones)
+        $recordsToKeep = $query->latest()->take(1)->pluck('id');
+
+        // Delete all other duplicate entries except the most recent one for each ID
+        $query->whereNotIn('id', $recordsToKeep)->delete();
+    }
 });
