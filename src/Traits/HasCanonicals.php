@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 trait HasCanonicals
 {
-    public function upsertCanonical($model, string $value, string $attribute = 'canonical')
+    public function upsertCanonical($model, string $value = 'name', string $attribute = 'canonical')
     {
         // Check if the attribute is dirty or blank
         if (blank($model->$attribute)) {
