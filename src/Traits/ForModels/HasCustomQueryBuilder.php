@@ -1,6 +1,6 @@
 <?php
 
-namespace Brunocfalcao\LaravelHelpers\Traits;
+namespace Brunocfalcao\LaravelHelpers\Traits\ForModels;
 
 use Brunocfalcao\LaravelHelpers\Classes\CustomEloquentQueryBuilder;
 

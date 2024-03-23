@@ -1,6 +1,6 @@
 <?php
 
-namespace Brunocfalcao\LaravelHelpers\Traits;
+namespace Brunocfalcao\LaravelHelpers\Traits\ForCommands;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
