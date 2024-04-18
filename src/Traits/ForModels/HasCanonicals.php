@@ -9,14 +9,22 @@ trait HasCanonicals
     /**
      * Autogenerates a canonical.
      *
-     * @param  string  $value  The column name to get the value for generation
-     * @param  string  $attribute  The column attribute where the value will be saved
+     * @param  string  $column  The column name to get the value for generation
+     * @param  string  $attribute  The attribute where the value will be saved
+     * @param  bool  $randomHash  If true, adds 4 random letters to the end
      * @return void
      */
-    public function upsertCanonical(string $value = 'name', string $attribute = 'canonical')
+    public function upsertCanonical(string $column = 'name', string $attribute = 'canonical', bool $randomHash = false)
     {
-        if ($this->isDirty($attribute) || blank($this->$attribute)) {
-            $canonical = Str::slug($this->$value, '-').'-'.strtolower(Str::random(4));
+        $update = false || blank($this->$attribute);
+
+        if ($update) {
+            $canonical = Str::slug($this->$column, '-');
+
+            if ($randomHash) {
+                $canonical .= '-'.strtolower(Str::random(4));
+            }
+
             $this->$attribute = $canonical;
         }
     }
