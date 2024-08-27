@@ -5,6 +5,18 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 /**
+ * Dumps info() but with any number of arguments.
+ */
+if (!function_exists('info_multiple')) {
+    function info_multiple(...$messages)
+    {
+        foreach ($messages as $message) {
+            info($message);
+        }
+    }
+}
+
+/**
  * Returns all env variables except comments.
  * Empty .env values from existing keys, will be returned as null.
  */
