@@ -7,7 +7,7 @@ use Symfony\Component\Process\Process;
 /**
  * Dumps info() but with any number of arguments.
  */
-if (!function_exists('info_multiple')) {
+if (! function_exists('info_multiple')) {
     function info_multiple(...$messages)
     {
         foreach ($messages as $message) {
