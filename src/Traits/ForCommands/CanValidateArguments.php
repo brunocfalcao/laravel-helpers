@@ -49,7 +49,7 @@ trait CanValidateArguments
     {
         $parameters = array_merge($this->options(), $this->arguments());
 
-        //Remove nulls?
+        // Remove nulls?
         if (! $includeNulls) {
             $parameters = collect($parameters)->reject(function ($value, $key) {
                 return is_null($value);
