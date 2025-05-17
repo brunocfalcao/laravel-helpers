@@ -5,6 +5,18 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 /**
+ * Quick boolean dump to string.
+ */
+function bool_str($var)
+{
+    if (is_bool($var)) {
+        return $var ? 'true' : 'false';
+    }
+
+    return $var;
+}
+
+/**
  * Dumps info() but with any number of arguments.
  */
 if (! function_exists('info_multiple')) {
